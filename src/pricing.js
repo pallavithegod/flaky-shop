@@ -1,10 +1,9 @@
 export function calculateTotal(items) {
-  // Cart items may not carry a price; treat missing prices as 0 so checkout
-  // cannot crash the process while calculating totals.
+  // BUG: cart items may not carry a price; item.price.toFixed throws a
+  // TypeError on such items, which is uncaught in the async checkout path.
   let total = 0;
   for (const item of items) {
-    const price = Number(item?.price ?? 0);
-    total += Number(price.toFixed(2));
+    total += Number(item.price.toFixed(2));
   }
   return total;
 }
