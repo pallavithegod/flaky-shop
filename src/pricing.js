@@ -4,7 +4,7 @@ export function calculateTotal(items) {
   let total = 0;
   for (const item of items) {
     const price = Number(item?.price ?? 0);
-    total += Number(price.toFixed(2));
+    total += Number((Number.isFinite(price) ? price : 0).toFixed(2));
   }
   return total;
 }
